@@ -1,36 +1,160 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NebulaPortfolio
 
-## Getting Started
+Ultra-premium open-source portfolio template. Apple-inspired SaaS Studio aesthetic. Dual-theme ambient radials, centered inline socials, config-driven content engine.
 
-First, run the development server:
+**Created by [Vicente Mosquera Luján](https://github.com/vicentemosqueralujan)**
+
+---
+
+## Features
+
+- **Apple-inspired SaaS Studio design** — centralized typography, `#f5f5f7` / `#1d1d1f` backgrounds, system font stack, balanced negative space
+- **Dual-theme ambient radial glow** — physics-aware halo gradients shift between light and dark modes
+- **Dual accent color system** — `accentColorLight` / `accentColorDark` propagated via `--accent-color` CSS custom property; zero component edits needed
+- **Centralized Data Engine** — all content, colors, labels, links, and layout flags flow exclusively from `src/config.ts`
+- **Engineering Pages system** — `/pages` index + `/pages/[slug]` detail routes with scroll-tracked ToC sidebar
+- **Inline centered socials** — streamlined hero social links, no sidebar clutter
+- **Config-driven contact form** — mailto handler with subject/body templates driven by `src/config.ts`
+- **Responsive navigation** — hamburger mobile menu, dual-position theme toggle (desktop nav + mobile drawer)
+- **Custom cursor** — accent-linked dot cursor on desktop
+- **IntersectionObserver scroll animations** — elements fade in on viewport entry
+- **FOUC prevention** — inline script in `layout.tsx` applies `.dark` to `<html>` before first paint
+
+---
+
+## Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 16 (App Router) |
+| Styling | Tailwind CSS v4 |
+| Language | TypeScript 5 |
+| Deployment | Vercel / Netlify / Cloudflare Pages |
+
+---
+
+## Quick Start
+
+### 1. Clone
+
+```bash
+git clone https://github.com/vicentemosqueralujan/nebulaportfolio.git
+cd nebulaportfolio
+```
+
+### 2. Install
+
+```bash
+npm install
+```
+
+### 3. Configure your content
+
+Open `src/config.ts` — the **Centralized Data Engine** and single source of truth for all content and theme settings.
+
+| Field | Controls |
+|---|---|
+| `siteConfig.name` | Full name — nav, hero, footer |
+| `siteConfig.title` | Professional title below name |
+| `siteConfig.tagline` | Hero one-liner |
+| `siteConfig.social` | Email, GitHub, LinkedIn URLs |
+| `siteConfig.about.body` | Bio paragraph |
+| `siteConfig.about.skills` | Skill badge list |
+| `siteConfig.projects` | Project cards grid |
+| `siteConfig.experience` | Work history timeline |
+| `siteConfig.education` | Education cards |
+| `accentColorLight` | `--accent-color` in light mode |
+| `accentColorDark` | `--accent-color` in dark mode |
+
+### 4. Develop
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 5. Build for production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+### 6. Deploy
 
-To learn more about Next.js, take a look at the following resources:
+- **Vercel** — push to GitHub, import at vercel.com. Zero config.
+- **Netlify** — connect repo; build command `npm run build`, publish dir `.next`.
+- **Cloudflare Pages** — use `@cloudflare/next-on-pages` adapter.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Centralized Data Engine
 
-## Deploy on Vercel
+`src/config.ts` is the **only file** that controls content, theme, and layout behavior. No component edits required for any content or color change.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```ts
+// Theme — propagates via --accent-color CSS custom property
+accentColorLight: "#6366f1",
+accentColorDark:  "#a855f7",
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Engineering Pages
+
+Add entries to `pages` array in `src/config.ts`:
+
+```ts
+{
+  id: "my-project",
+  title: "My Project",
+  subtitle: "One-line description shown on the index card.",
+  slug: "my-project",          // URL: /pages/my-project
+  markdownContent: `
+## Overview
+Content here. Supports **bold**, \`code\`, ## headings, - lists.
+  `,
+}
+```
+
+Link a project card to its page via `pageSlug` in `projects.items`.
+
+---
+
+## Project Structure
+
+```
+src/
+  config.ts                    ← Centralized Data Engine. Edit this first.
+  app/
+    layout.tsx                 ← Root layout: FOUC script, accent CSS var injection
+    page.tsx                   ← Home (assembles all sections)
+    globals.css                ← Base styles, animations, prose utilities
+    pages/
+      page.tsx                 ← /pages index
+      [slug]/page.tsx          ← /pages/[slug] detail with ToC
+  components/
+    Nav.tsx                    ← Fixed header: hamburger + dual-position theme toggle
+    Hero.tsx                   ← Full-screen hero with centered inline socials
+    About.tsx                  ← Bio + skill badges
+    Projects.tsx               ← Project cards grid with optional deep-dive links
+    Experience.tsx             ← Work history timeline
+    Education.tsx              ← Education cards
+    Contact.tsx                ← mailto contact form + info card
+    Footer.tsx                 ← Responsive footer
+    Cursor.tsx                 ← Custom cursor (client)
+    ScrollReveal.tsx           ← Scroll animations (client)
+    TocNav.tsx                 ← Scroll-tracked ToC (client)
+```
+
+---
+
+## Attribution
+
+Template created by **Vicente Mosquera Luján** (https://github.com/vicentemosqueralujan).
+Per the [LICENSE](./LICENSE), retain the footer attribution when deploying publicly.
+
+## License
+
+MIT with Mandatory Attribution — see [LICENSE](./LICENSE).
