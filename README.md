@@ -13,6 +13,8 @@ Ultra-premium open-source portfolio template. Apple-inspired SaaS Studio aesthet
 - **Dual accent color system** — `accentColorLight` / `accentColorDark` propagated via `--accent-color` CSS custom property; zero component edits needed
 - **Centralized Data Engine** — all content, colors, labels, links, and layout flags flow exclusively from `src/config.ts`
 - **Engineering Pages system** — `/pages` index + `/pages/[slug]` detail routes with scroll-tracked ToC sidebar
+- **Clean markdown processing** — bold-prefixed list items and sub-descriptions flow as continuous inline text, no stray line wraps
+- **Responsive single-column project layout** — one project per row at every breakpoint, with left-aligned conditional "View source" / "Read page" links and unified purple-pill tech badges
 - **Inline centered socials** — streamlined hero social links, no sidebar clutter
 - **Config-driven contact form** — mailto handler with subject/body templates driven by `src/config.ts`
 - **Responsive navigation** — hamburger mobile menu, dual-position theme toggle (desktop nav + mobile drawer)

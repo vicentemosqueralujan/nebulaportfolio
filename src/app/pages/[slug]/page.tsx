@@ -25,7 +25,7 @@ function parseMarkdown(md: string): string {
   let inList = false;
 
   for (const raw of lines) {
-    const line = raw;
+    const line = raw.trim();
 
     const h2 = line.match(/^## (.+)$/);
     if (h2) {

@@ -87,7 +87,6 @@ export const siteConfig = {
   // buttons.secondary links to /pages.
 
   hero: {
-    greeting: "Hello! 👋",
     namePrefix: "I'm",
     buttons: {
       primary: "View Projects",
